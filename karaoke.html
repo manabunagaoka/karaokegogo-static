@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karaoke - KaraokeGoGo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/karaoke.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="logo">
+                <span class="logo-part1">karaoke</span><span class="logo-part2">GoGo</span>
+                <span class="beta-tag">beta</span>
+            </h1>
+            <p class="tagline">Pour your soul. Remix your world.</p>
+            
+            <div class="back-button" onclick="window.location.href='index.html'">
+                <i class="fas fa-arrow-left"></i> Back
+            </div>
+        </header>
+        
+        <main class="section-content">
+            <div class="section-title">
+                <i class="fas fa-microphone"></i>
+                <h2>Karaoke</h2>
+            </div>
+            
+            <div class="karaoke-container">
+                <p class="section-description">
+                    Sing along to your favorite tracks with our immersive karaoke experience. 
+                    Choose from thousands of songs and show off your vocal talent!
+                </p>
+                
+                <div class="featured-tracks">
+                    <h3>Featured Tracks</h3>
+                    
+                    <div class="track-item">
+                        <div class="track-info">
+                            <div class="track-title">Bohemian Rhapsody</div>
+                            <div class="track-artist">Queen</div>
+                        </div>
+                        <div class="audio-player">
+                            <audio controls>
+                                <source src="audio/sample1.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                        <button class="sing-button">Sing Now</button>
+                    </div>
+                    
+                    <div class="track-item">
+                        <div class="track-info">
+                            <div class="track-title">Don't Stop Believin'</div>
+                            <div class="track-artist">Journey</div>
+                        </div>
+                        <div class="audio-player">
+                            <audio controls>
+                                <source src="audio/sample2.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                        <button class="sing-button">Sing Now</button>
+                    </div>
+                    
+                    <div class="track-item">
+                        <div class="track-info">
+                            <div class="track-title">Sweet Child O' Mine</div>
+                            <div class="track-artist">Guns N' Roses</div>
+                        </div>
+                        <div class="audio-player">
+                            <audio controls>
+                                <source src="audio/sample3.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                        <button class="sing-button">Sing Now</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <nav class="main-navigation">
+            <div class="nav-buttons">
+                <a href="karaoke.html" class="nav-button karaoke-btn active">
+                    <div class="btn-icon"><i class="fas fa-microphone"></i></div>
+                    <div class="btn-text">Karaoke</div>
+                </a>
+                
+                <a href="my-mix.html" class="nav-button my-mix-btn">
+                    <div class="btn-icon"><i class="fas fa-music"></i></div>
+                    <div class="btn-text">My Mix</div>
+                </a>
+                
+                <a href="top-charts.html" class="nav-button top-charts-btn">
+                    <div class="btn-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="btn-text">Top Charts</div>
+                </a>
+                
+                <a href="feed.html" class="nav-button feed-btn">
+                    <div class="btn-icon"><i class="fas fa-rss"></i></div>
+                    <div class="btn-text">Feed</div>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/karaoke.js"></script>
+</body>
+</html>

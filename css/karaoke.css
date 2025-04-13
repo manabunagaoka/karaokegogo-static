@@ -1,0 +1,196 @@
+/* Karaoke page specific styles */
+
+.section-content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.back-button {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.back-button:hover {
+    opacity: 1;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    color: #a239ca;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(162, 57, 202, 0.3);
+    width: 100%;
+    max-width: 600px;
+}
+
+.section-title i {
+    font-size: 1.5rem;
+}
+
+.section-title h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.karaoke-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.section-description {
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.featured-tracks {
+    margin-top: 1rem;
+}
+
+.featured-tracks h3 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.track-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.track-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.track-info {
+    margin-bottom: 0.8rem;
+}
+
+.track-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.track-artist {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.audio-player {
+    margin-bottom: 0.8rem;
+    width: 100%;
+}
+
+.audio-player audio {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+}
+
+/* Customize audio player styling */
+audio::-webkit-media-controls-panel {
+    background: rgba(162, 57, 202, 0.2);
+}
+
+audio::-webkit-media-controls-play-button {
+    background-color: #a239ca;
+    border-radius: 50%;
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+    color: #fff;
+}
+
+.sing-button {
+    background: linear-gradient(135deg, #a239ca, #4c2882);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: block;
+    margin-left: auto;
+}
+
+.sing-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(162, 57, 202, 0.5);
+}
+
+/* Highlight active nav button */
+.nav-button.active {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+    
+    .section-title i {
+        font-size: 1.3rem;
+    }
+    
+    .track-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-button {
+        top: 1rem;
+        left: 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .section-content {
+        padding: 0.8rem;
+    }
+    
+    .section-title {
+        margin-bottom: 1rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.3rem;
+    }
+    
+    .section-title i {
+        font-size: 1.1rem;
+    }
+    
+    .track-item {
+        padding: 0.8rem;
+    }
+    
+    .sing-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
