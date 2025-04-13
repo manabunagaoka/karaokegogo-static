@@ -23,15 +23,13 @@
 <body>
     <div class="app-container">
         <header class="app-header">
-            <h1 class="logo">
-                <span class="logo-part1">karaoke</span><span class="logo-part2">GoGo</span>
-                <span class="beta-tag">beta</span>
-            </h1>
-            <p class="tagline">Pour your soul. Remix your world.</p>
-            
-            <div class="back-button" onclick="window.location.href='index.html'">
-                <i class="fas fa-arrow-left"></i> Back
+            <div class="logo-container">
+                <h1 class="logo">
+                    karaokeGoGo
+                    <span class="beta-tag">beta</span>
+                </h1>
             </div>
+            <p class="tagline">Pour your soul. Remix your world.</p>
         </header>
         
         <main class="section-content">
@@ -52,7 +50,7 @@
                     <div class="track-item">
                         <div class="track-info">
                             <div class="track-title">Teacher Anthem</div>
-                            <div class="track-artist">Karaoke Track</div>
+                            <div class="track-artist">Karaoke Ver.</div>
                         </div>
                         <div class="audio-player">
                             <audio controls>
@@ -66,7 +64,7 @@
                     <div class="track-item">
                         <div class="track-info">
                             <div class="track-title">Teacher Anthem</div>
-                            <div class="track-artist">Original Song</div>
+                            <div class="track-artist">With Vocal</div>
                         </div>
                         <div class="audio-player">
                             <audio controls>
@@ -96,22 +94,72 @@
         
         <nav class="main-navigation">
             <div class="nav-buttons">
-                <a href="karaoke.html" class="nav-button karaoke-btn active">
+                <a href="karaoke.html" class="nav-button karaoke-btn active" style="border: 2px solid #ff99ff;">
+                    <div class="glow"></div>
                     <div class="btn-icon"><i class="fas fa-microphone"></i></div>
                     <div class="btn-text">Karaoke</div>
                 </a>
                 
-                <a href="my-mix.html" class="nav-button my-mix-btn">
+                <a href="my-mix.html" class="nav-button my-mix-btn" style="border: 2px solid #99ccff;">
+                    <div class="glow"></div>
+                    <div class="btn-icon"><i class="fas fa-music"></i></div>
+                    <div class="btn-text">My Mix</div>
+                </a>
+                
+                <a href="top-charts.html" class="nav-button top-charts-btn" style="border: 2px solid #ffcc99;">
+                    <div class="glow"></div>
+                    <div class="btn-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="btn-text">Top Charts</div>
+                </a>
+                
+                <a href="feed.html" class="nav-button feed-btn" style="border: 2px solid #99ff99;">
+                    <div class="glow"></div>
+                    <div class="btn-icon"><i class="fas fa-rss"></i></div>
+                    <div class="btn-text">Feed</div>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/karaoke.js"></script>
+</body>
+</html>
                     <div class="btn-icon"><i class="fas fa-music"></i></div>
                     <div class="btn-text">My Mix</div>
                 </a>
                 
                 <a href="top-charts.html" class="nav-button top-charts-btn">
+                    <div class="glow"></div>
                     <div class="btn-icon"><i class="fas fa-chart-line"></i></div>
                     <div class="btn-text">Top Charts</div>
                 </a>
                 
                 <a href="feed.html" class="nav-button feed-btn">
+                    <div class="glow"></div>
+                    <div class="btn-icon"><i class="fas fa-rss"></i></div>
+                    <div class="btn-text">Feed</div>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/karaoke.js"></script>
+</body>
+</html>
+                    <div class="btn-icon"><i class="fas fa-music"></i></div>
+                    <div class="btn-text">My Mix</div>
+                </a>
+                
+                <a href="top-charts.html" class="nav-button top-charts-btn">
+                    <div class="glow"></div>
+                    <div class="btn-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="btn-text">Top Charts</div>
+                </a>
+                
+                <a href="feed.html" class="nav-button feed-btn">
+                    <div class="glow"></div>
                     <div class="btn-icon"><i class="fas fa-rss"></i></div>
                     <div class="btn-text">Feed</div>
                 </a>

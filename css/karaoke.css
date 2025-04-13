@@ -32,7 +32,6 @@
     align-items: center;
     gap: 0.8rem;
     margin-bottom: 1.5rem;
-    color: #a239ca;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid rgba(162, 57, 202, 0.3);
     width: 100%;
@@ -41,11 +40,17 @@
 
 .section-title i {
     font-size: 1.5rem;
+    color: #a239ca;
 }
 
 .section-title h2 {
     font-size: 1.8rem;
     font-weight: 600;
+    /* Disco-style gradient for section title */
+    background: linear-gradient(to right, #ff9900, #ff00ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .karaoke-container {
@@ -70,26 +75,26 @@
 }
 
 .track-item {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .track-item:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(20, 20, 20, 0.8);
 }
 
 .track-info {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
 }
 
 .track-title {
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .track-artist {
@@ -105,12 +110,13 @@
 .audio-player audio {
     width: 100%;
     height: 40px;
-    border-radius: 20px;
+    border-radius: 50px;
+    background: rgba(162, 57, 202, 0.2);
 }
 
-/* Customize audio player styling */
+/* Custom audio player styling to match design */
 audio::-webkit-media-controls-panel {
-    background: rgba(162, 57, 202, 0.2);
+    background: rgba(162, 57, 202, 0.15);
 }
 
 audio::-webkit-media-controls-play-button {
@@ -123,17 +129,23 @@ audio::-webkit-media-controls-time-remaining-display {
     color: #fff;
 }
 
-.sing-button {
-    background: linear-gradient(135deg, #a239ca, #4c2882);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 50px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: block;
-    margin-left: auto;
+/* Unified play/pause button styling */
+button.sing-button, button.play-button, button.pause-button {
+  background: linear-gradient(135deg, #a239ca, #4c2882);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  margin-left: auto;
+}
+
+button.sing-button:hover, button.play-button:hover, button.pause-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(162, 57, 202, 0.5);
 }
 
 .sing-button:hover {

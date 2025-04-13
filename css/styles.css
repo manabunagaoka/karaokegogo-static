@@ -1,211 +1,439 @@
 /* Base styles and reset */
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #000;
-    color: #fff;
+    padding: 0;
+    margin: 0;
+  }
+  
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Poppins', sans-serif;
+  }
+  
+  body {
+    color: white;
+    background: #121212;
+    min-height: 100vh;
     height: 100vh;
     overflow: hidden;
-    margin: 0;
-    padding: 0;
-}
-
-.app-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url('../images/stage.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
-/* Header styles */
-.app-header {
-    text-align: center;
-    padding: 2rem 1rem;
-}
-
-.logo {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-.logo-part1 {
-    background: linear-gradient(to right, #f1a43c, #e5745f);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.logo-part2 {
-    background: linear-gradient(to right, #e5745f, #a239ca);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.beta-tag {
-    font-size: 0.9rem;
-    background: rgba(162, 57, 202, 0.2);
-    color: #a239ca;
-    padding: 0.1rem 0.4rem;
-    border-radius: 0.3rem;
-    vertical-align: super;
-    margin-left: 0.2rem;
-}
-
-.tagline {
-    font-size: 1.2rem;
-    font-weight: 300;
-    opacity: 0.9;
-}
-
-/* Main content styles */
-.main-content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.microphone-container {
-    position: relative;
-    width: 80%;
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-.microphone-image {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
-}
-
-/* Stage lighting effect */
-.main-content::before,
-.main-content::after {
-    content: '';
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    filter: blur(40px);
-}
-
-.main-content::before {
-    top: 5%;
-    left: 10%;
-}
-
-.main-content::after {
-    bottom: 5%;
-    right: 10%;
-}
-
-/* Navigation styles */
-.main-navigation {
-    padding: 1.5rem;
-    margin-top: auto;
-}
-
-.nav-buttons {
-    display: flex;
-    justify-content: space-around;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.nav-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    color: white;
+  }
+  
+  a {
+    color: inherit;
     text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.nav-button:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.btn-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.3rem;
-}
-
-.btn-text {
-    font-size: 0.8rem;
-}
-
-/* Button specific styles */
-.karaoke-btn {
-    background: linear-gradient(135deg, #a239ca, #4c2882);
-    box-shadow: 0 0 10px rgba(162, 57, 202, 0.5);
-}
-
-.my-mix-btn {
-    background: linear-gradient(135deg, #4a90e2, #314e8c);
-    box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
-}
-
-.top-charts-btn {
-    background: linear-gradient(135deg, #f1a43c, #e27b3a);
-    box-shadow: 0 0 10px rgba(241, 164, 60, 0.5);
-}
-
-.feed-btn {
-    background: linear-gradient(135deg, #3bcc65, #2a9d5c);
-    box-shadow: 0 0 10px rgba(59, 204, 101, 0.5);
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    .logo {
-        font-size: 2rem;
-    }
-    
-    .tagline {
-        font-size: 1rem;
-    }
-    
-    .nav-button {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .btn-icon {
-        font-size: 1.2rem;
-    }
-    
-    .btn-text {
-        font-size: 0.7rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav-button {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .btn-icon {
-        font-size: 1rem;
-    }
-    
-    .btn-text {
-        font-size: 0.6rem;
-    }
-}
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      /* Minimal overlay to show the background image clearly */
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../images/stage.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+  }
+  
+  /* Header styles */
+  .app-header {
+      text-align: center;
+      padding: 2rem 1rem;
+  }
+  
+  /* Logo Container for proper positioning */
+  .logo-container {
+      position: relative;
+      display: inline-block;
+  }
+  
+  .logo {
+      font-size: clamp(32px, 6vw, 38px);
+      font-weight: 700;
+      margin: 0;
+      /* Exact gradient from AppLogo.tsx */
+      background: linear-gradient(to right, #ff9900, #ff00ff, #00ffff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  /* Updated Beta Tag with exact values from AppLogo.tsx */
+  .beta-tag {
+      position: relative;
+      top: clamp(-14px, -3vw, -16px);
+      font-size: clamp(12px, 3vw, 15px);
+      font-weight: normal;
+      background: linear-gradient(to right, #ff00cc, #00ccff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-left: 5px;
+      padding: 2px 6px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      display: inline-block;
+  }
+  
+  .tagline {
+      font-size: 1.2rem;
+      font-weight: 300;
+      opacity: 0.9;
+  }
+  
+  /* Main content styles */
+  .main-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+  }
+  
+  .microphone-container {
+      position: relative;
+      width: 80%;
+      max-width: 300px;
+      margin: 0 auto;
+  }
+  
+  .microphone-image {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+  }
+  
+  /* Stage lighting effect */
+  .main-content::before,
+  .main-content::after {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      filter: blur(40px);
+      animation: colorChange 8s infinite alternate;
+      opacity: 0.6;
+  }
+  
+  .main-content::before {
+      top: 5%;
+      left: 10%;
+      animation-delay: 0s;
+  }
+  
+  .main-content::after {
+      bottom: 15%;
+      right: 10%;
+      animation-delay: 2s;
+  }
+  
+  /* Add two more light spots for more "disco" effect */
+  .main-content::before,
+  .app-container::before,
+  .app-container::after {
+      content: '';
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      filter: blur(40px);
+      animation: colorChange 8s infinite alternate;
+      opacity: 0.6;
+  }
+  
+  .app-container::before {
+      top: 15%;
+      right: 15%;
+      animation-delay: 4s;
+  }
+  
+  .app-container::after {
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 6s;
+  }
+  
+  @keyframes colorChange {
+      0% {
+          background: rgba(162, 57, 202, 0.4); /* Purple */
+      }
+      25% {
+          background: rgba(74, 144, 226, 0.4); /* Blue */
+      }
+      50% {
+          background: rgba(241, 164, 60, 0.4); /* Orange */
+      }
+      75% {
+          background: rgba(59, 204, 101, 0.4); /* Green */
+      }
+      100% {
+          background: rgba(226, 68, 92, 0.4); /* Red */
+      }
+  }
+  
+  /* Navigation styles */
+  .main-navigation {
+      padding: 1.5rem;
+      margin-top: auto;
+      position: relative;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.85); /* More transparency over the black bar */
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .nav-buttons {
+      display: flex;
+      justify-content: space-around;
+      max-width: 800px;
+      margin: 0 auto;
+  }
+  
+  /* Active button state */
+  .nav-button.active {
+      transform: scale(1.05);
+  }
+  
+  /* Button texts and icons */
+  .btn-icon {
+      font-size: clamp(16px, 4vw, 24px);
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 2;
+  }
+  
+  .btn-text {
+      font-size: clamp(9px, 2vw, 12px);
+      position: relative;
+      z-index: 2;
+      margin-top: 0;
+      text-align: center;
+      width: 100%;
+  }
+  
+  /* Glow effect */
+  .nav-button .glow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+      top: -50%;
+      left: -50%;
+      opacity: 0.5;
+      animation: disco-spin 3s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+  }
+  
+  /* Enhanced hover effects to match original */
+  .nav-button:hover {
+      transform: scale(1.05);
+  }
+  
+  /* Active button styling */
+  .nav-button.active {
+      transform: scale(1.05);
+      /* Increase glow for active button */
+      filter: brightness(1.2);
+  }
+  
+  /* Button text and icon styling */
+  .btn-icon {
+      font-size: clamp(14px, 3.5vw, 20px);
+      margin-bottom: 3px;
+      position: relative;
+      z-index: 2;
+  }
+  
+  .btn-text {
+      font-size: clamp(8px, 1.8vw, 11px);
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      width: 100%;
+  }
+  
+  /* Rotating glow effect */
+  .nav-button .glow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+      top: -50%;
+      left: -50%;
+      opacity: 0.5;
+      animation: disco-spin 5s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+  }
+  
+  /* Rotating glow effect */
+  .nav-button .glow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+      top: -50%;
+      left: -50%;
+      opacity: 0.5;
+      animation: disco-spin 5s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+  }
+  
+  @keyframes disco-spin {
+      0% {
+          transform: rotate(0deg) translate(25%, 25%);
+          opacity: 0.7;
+      }
+      50% {
+          opacity: 0.3;
+      }
+      100% {
+          transform: rotate(360deg) translate(25%, 25%);
+          opacity: 0.7;
+      }
+  }
+  
+  @keyframes disco-spin {
+      0% {
+          transform: rotate(0deg) translate(25%, 25%);
+      }
+      100% {
+          transform: rotate(360deg) translate(25%, 25%);
+      }
+  }
+  
+  .nav-button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                  box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+  }
+  
+  .nav-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Add the glowing effect */
+  .nav-button::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+      top: -50%;
+      left: -50%;
+      opacity: 0.5;
+      animation: disco-spin 3s linear infinite;
+      pointer-events: none;
+  }
+  
+  @keyframes disco-spin {
+      0% {
+          transform: rotate(0deg) translate(50%, 50%);
+          opacity: 0.7;
+      }
+      50% {
+          opacity: 0.3;
+      }
+      100% {
+          transform: rotate(360deg) translate(50%, 50%);
+          opacity: 0.7;
+      }
+  }
+  
+  /* Fix icon and text size to prevent overflow */
+  .btn-icon {
+      font-size: clamp(13px, 3vw, 18px); /* Reduced size to prevent overflow */
+      position: relative;
+      z-index: 2;
+      margin-bottom: 2px; /* Less space between icon and text */
+  }
+  
+  .btn-text {
+      font-size: clamp(7px, 1.6vw, 10px); /* Smaller text to fit in circles */
+      position: relative;
+      z-index: 2;
+      margin-top: 0; /* Remove extra spacing */
+      text-align: center; /* Center text */
+      white-space: nowrap; /* Prevent text wrapping */
+      width: 100%; /* Full width to center properly */
+  }
+  
+  /* Button specific styles */
+  .karaoke-btn {
+      background: radial-gradient(circle, #ff00cc, #660066);
+      box-shadow: 0 0 15px rgba(255, 0, 204, 0.6);
+  }
+  
+  .my-mix-btn {
+      background: radial-gradient(circle, #00ccff, #0066cc);
+      box-shadow: 0 0 15px rgba(0, 204, 255, 0.6);
+  }
+  
+  .top-charts-btn {
+      background: radial-gradient(circle, #ffcc00, #cc6600);
+      box-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+  }
+  
+  .feed-btn {
+      background: radial-gradient(circle, #33cc33, #006600);
+      box-shadow: 0 0 15px rgba(51, 204, 51, 0.6);
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+      .logo {
+          font-size: 2rem;
+      }
+      
+      .tagline {
+          font-size: 1rem;
+      }
+      
+      .nav-button {
+          width: 60px;
+          height: 60px;
+      }
+      
+      .btn-icon {
+          font-size: 1.2rem;
+      }
+      
+      .btn-text {
+          font-size: 0.7rem;
+      }
+  }
+  
+  @media (max-width: 480px) {
+      .nav-button {
+          width: 50px;
+          height: 50px;
+      }
+      
+      .btn-icon {
+          font-size: 1rem;
+      }
+      
+      .btn-text {
+          font-size: 0.6rem;
+      }
+  }
