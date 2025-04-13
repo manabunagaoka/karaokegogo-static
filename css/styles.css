@@ -11,13 +11,15 @@ body {
     color: #fff;
     height: 100vh;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .app-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url('../images/stage-background.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url('../images/stage.jpg');
     background-size: cover;
     background-position: center;
 }
