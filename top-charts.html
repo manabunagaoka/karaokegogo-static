@@ -310,33 +310,44 @@
             }
         }
 
-        /* iOS Chrome specific fixes */
-        .ios-chrome .app-container {
-          background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/stage.jpg') !important;
-          background-size: cover !important;
-          background-position: center !important;
-        }
-    
-        .ios-chrome .logo {
-          /* Simplified gradient for iOS */
-          background: #ff66cc !important;
-          color: transparent !important;
-          -webkit-background-clip: text !important;
-        }
-    
-        .ios-chrome .beta-tag {
-          /* Simplified gradient for iOS */
-          background: #33ccff !important;
-          color: transparent !important;
-          -webkit-background-clip: text !important;
-        }
-    
-        /* Fix for navigation issues */
-        .ios-chrome .close-button,
-        .ios-chrome .panel-handle {
-          cursor: pointer;
-          -webkit-tap-highlight-color: transparent;
-        }
+       /* iOS Chrome specific fixes */
+.ios-chrome .app-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/stage.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+/* Use more specific gradients that will work in iOS Chrome */
+.ios-chrome .logo {
+  /* Rainbow gradient with fallback */
+  background-image: linear-gradient(to right, #ff9900, #ff00ff, #00ffff) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  /* Add backup shadow for better visibility */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+.ios-chrome .beta-tag {
+  /* Blue gradient with fallback */
+  background-image: linear-gradient(to right, #ff00cc, #00ccff) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+/* Fix for navigation issues */
+.ios-chrome .close-button,
+.ios-chrome .panel-handle {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure text stays visible during animation */
+.ios-chrome * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
     </style>
 </head>
