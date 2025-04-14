@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Top Charts - KaraokeGoGo</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -460,5 +460,37 @@
     </div>
 
     <script src="js/main.js"></script>
+    <!-- Add the new script here -->
+<script>
+    // Enhanced back button handlers for iOS compatibility
+    document.addEventListener('DOMContentLoaded', function() {
+        const closeButtons = document.querySelectorAll('.close-button');
+        const panelHandles = document.querySelectorAll('.panel-handle');
+        
+        // Function to handle navigation back to home
+        function navigateHome(e) {
+            if (e) e.preventDefault();
+            window.location.href = 'index.html';
+        }
+        
+        // Add both click and touchend events for better iOS compatibility
+        closeButtons.forEach(button => {
+            button.addEventListener('click', navigateHome);
+            button.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                navigateHome();
+            });
+        });
+        
+        panelHandles.forEach(handle => {
+            handle.addEventListener('click', navigateHome);
+            handle.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                navigateHome();
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
