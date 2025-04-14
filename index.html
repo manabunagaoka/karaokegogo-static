@@ -77,6 +77,19 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* iOS Chrome specific beta tag border fix */
+.ios-chrome .beta-tag {
+  /* Blue gradient with fallback */
+  background-image: linear-gradient(to right, #ff00cc, #00ccff) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  /* Make border more visible for iOS Chrome */
+  border: 1px solid rgba(255,255,255,0.7) !important; /* Brighter border */
+  box-shadow: 0 0 3px rgba(255,255,255,0.3) !important; /* Add glow */
+}
+
     </style>
 </head>
 <body>
