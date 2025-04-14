@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed - KaraokeGoGo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        crossorigin="anonymous"
+    />
+    <style>
+        /* Panel styles */
+        .content-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 18, 18, 0.95);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .panel-handle {
+            padding: 8px 0;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+        }
+        
+        .handle-indicator {
+            width: 40px;
+            height: 5px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 3px;
+        }
+        
+        .panel-header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(to right, rgba(0,102,51,0.8) 0%, rgba(18,18,18,0.8) 100%);
+        }
+        
+        .panel-title {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, #00ff99, #33cc33);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            max-width: calc(100% - 50px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .close-button {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #00ff99, #009966);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 255, 153, 0.5);
+        }
+        
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        /* Section title styling */
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title i {
+            font-size: 24px;
+            margin-right: 12px;
+            color: #00ff99;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(to right, #00ff99, #33cc33);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
+
+        .section-description {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Feed filters */
+        .feed-filters {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        
+        .feed-filter {
+            padding: 8px 15px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .feed-filter.active {
+            background: linear-gradient(135deg, rgba(0, 255, 153, 0.3), rgba(0, 153, 102, 0.3));
+            color: #00ff99;
+            font-weight: 500;
+        }
+        
+        .feed-filter:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Feed posts */
+        .feed-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .feed-post {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            border-left: 4px solid rgba(0, 255, 153, 0.7);
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .post-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00ff99, #009966);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .post-user {
+            flex: 1;
+        }
+        
+        .post-username {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        
+        .post-meta {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+        }
+        
+        .post-meta i {
+            font-size: 10px;
+            margin-right: 5px;
+        }
+        
+        .post-time {
+            margin-right: 10px;
+        }
+        
+        .post-category {
+            color: #00ff99;
+        }
+        
+        .post-content {
+            padding: 15px;
+        }
+        
+        .post-text {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .post-image {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .post-image img {
+            width: 100%;
+            display: block;
+        }
+        
+        .image-caption {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            padding: 0 5px;
+            margin-bottom: 15px;
+        }
+        
+        .post-actions {
+            display: flex;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+        }
+        
+        .post-action {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+        
+        .post-action:hover {
+            color: #00ff99;
+        }
+        
+        .post-action i {
+            margin-right: 5px;
+        }
+        
+        /* Coming soon notice */
+        .coming-soon-notice {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(0, 255, 153, 0.1);
+            border-radius: 10px;
+        }
+        
+        .coming-soon-notice h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #00ff99;
+        }
+        
+        .coming-soon-notice p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .post-header {
+                flex-wrap: wrap;
+            }
+            
+            .post-meta {
+                margin-top: 5px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="feed-page">
+    <div class="content-panel" id="feedPanel">
+        <!-- Panel handle for swipe down -->
+        <div class="panel-handle">
+            <div class="handle-indicator"></div>
+        </div>
+        
+        <!-- Panel header -->
+        <div class="panel-header">
+            <h2 class="panel-title">Read updates and discover</h2>
+            <button class="close-button">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+        
+        <!-- Panel content -->
+        <div class="panel-content">
+            <div class="section-title">
+                <i class="fas fa-rss"></i>
+                <h2>Feed</h2>
+            </div>
+            
+            <p class="section-description">
+                Read news and stories from around the world. Learn about creators and their songs.
+            </p>
+            
+            <!-- Feed filters -->
+            <div class="feed-filters">
+                <div class="feed-filter active">All</div>
+                <div class="feed-filter">News</div>
+                <div class="feed-filter">Stories</div>
+                <div class="feed-filter">Artists</div>
+                <div class="feed-filter">Events</div>
+                <div class="feed-filter">Challenges</div>
+            </div>
+            
+            <!-- Feed posts -->
+            <div class="feed-posts">
+                <!-- Post 1 -->
+                <div class="feed-post">
+                    <div class="post-header">
+                        <div class="post-avatar">KG</div>
+                        <div class="post-user">
+                            <div class="post-username">KaraokeGoGo Team</div>
+                            <div class="post-meta">
+                                <span class="post-time"><i class="fas fa-clock"></i> 2 hours ago</span>
+                                <span class="post-category"><i class="fas fa-tag"></i> News</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-text">
+                            We created KaraokeGoGo with a simple yet powerful vision: to harness the joy of karaoke as a creative tool for self-expression and learning.
+                            <br><br>
+                            Music has this incredible ability to connect people across boundaries. By giving everyone the chance to create their own lyrics, remix tracks, and share their musical journey, we're building more than just an app — we're nurturing a community where creativity and education flow together naturally.
+                            <br><br>
+                            When you sing someone else's words, you embody their emotions. When you write your own, you discover your voice. That's where true learning happens.
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action">
+                            <i class="fas fa-heart"></i>
+                            <span>243</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-comment"></i>
+                            <span>56</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Post 2 -->
+                <div class="feed-post">
+                    <div class="post-header">
+                        <div class="post-avatar">M</div>
+                        <div class="post-user">
+                            <div class="post-username">Manabu, CEO</div>
+                            <div class="post-meta">
+                                <span class="post-time"><i class="fas fa-clock"></i> 1 day ago</span>
+                                <span class="post-category"><i class="fas fa-tag"></i> Stories</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-text">
+                            <strong>My Journey from Japan to the Global Stage</strong>
+                            <br><br>
+                            Growing up in Japan, the land of sun, Nintendo, and karaoke, I had a confession to make — I loved the sun and Nintendo, but I actually hated karaoke! This might sound strange coming from the CEO of KaraokeGoGo, but my mom ran a karaoke bar in a small town by the Japan Sea, and I saw it all.
+                            <br><br>
+                            Her customers were mostly teachers from local schools, looking to blow off steam after long days. Watching them made me wonder: why is teaching so challenging, and why don't we students enjoy learning more?
+                            <br><br>
+                            Years later at Harvard, I discovered education could actually be exhilarating. As AI tools emerged making creation more accessible, I reflected on my time producing media at Sesame Workshop. That's when it clicked — karaoke could be the perfect bridge between learning and fun.
+                        </div>
+                        <div class="post-image">
+                            <img src="images/youaremeanttobehere.jpg" alt="Message on Harvard bridge">
+                        </div>
+                        <div class="image-caption">
+                            On my way home from the first day at Harvard, I found this text on the bridge. "You're meant to be here" — a reminder that anything is possible.
+                        </div>
+                        <div class="post-text">
+                            I'll be sharing insights here regularly, including my own songs! I hope you'll join me in creating, or simply drop by to discover what others are making. This is about finding joy in expression and learning together.
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action">
+                            <i class="fas fa-heart"></i>
+                            <span>325</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-comment"></i>
+                            <span>98</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Coming Soon Notice -->
+            <div class="coming-soon-notice">
+                <h3>Coming Soon</h3>
+                <p>
+                    Feed section will be interactive and you can like, leave comments, and share your thoughts with the community.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

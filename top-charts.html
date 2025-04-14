@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Charts - KaraokeGoGo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        crossorigin="anonymous"
+    />
+    <style>
+        /* Panel styles */
+        .content-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 18, 18, 0.95);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .panel-handle {
+            padding: 8px 0;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+        }
+        
+        .handle-indicator {
+            width: 40px;
+            height: 5px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 3px;
+        }
+        
+        /* Improved panel header for preventing squished buttons */
+        .panel-header {
+            padding: 15px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(to right, rgba(204,102,0,0.8) 0%, rgba(18,18,18,0.8) 100%);
+        }
+        
+        .panel-title {
+            font-size: 18px; /* Smaller font size */
+            font-weight: bold;
+            background: linear-gradient(to right, #ffcc00, #ff6600);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+            max-width: calc(100% - 50px); /* Leave space for button */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .close-button {
+            width: 40px;
+            height: 40px;
+            min-width: 40px; /* Prevent squishing */
+            flex-shrink: 0; /* Prevent squishing */
+            background: linear-gradient(135deg, #ffcc00, #ff6600);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+            margin-left: 10px;
+        }
+        
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        /* Section title styling */
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title i {
+            font-size: 24px;
+            margin-right: 12px;
+            color: #ffcc00;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(to right, #ffcc00, #ff6600);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
+
+        .section-description {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Charts section */
+        .charts-container {
+            margin-bottom: 30px;
+        }
+        
+        .chart-section {
+            margin-bottom: 30px;
+        }
+        
+        .chart-title {
+            font-size: 22px;
+            font-weight: 600;
+            background: linear-gradient(to right, #ffcc00, #ff9900);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chart-title i {
+            margin-right: 10px;
+            color: #ffcc00;
+        }
+        
+        .chart-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .chart-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        
+        .chart-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .chart-rank {
+            font-size: 18px;
+            font-weight: 700;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.2), rgba(255, 102, 0, 0.2));
+            color: #ffcc00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .chart-info {
+            flex: 1;
+        }
+        
+        .chart-song {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .chart-artist {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+        
+        .chart-stats {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        
+        .chart-stats i {
+            margin-right: 5px;
+            color: #ffcc00;
+        }
+        
+        /* Regional tabs */
+        .region-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        
+        .region-tab {
+            padding: 8px 15px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .region-tab.active {
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.3), rgba(255, 102, 0, 0.3));
+            color: #ffcc00;
+            font-weight: 500;
+        }
+        
+        .region-tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Create Challenge button */
+        .create-challenge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.15), rgba(255, 102, 0, 0.15));
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .challenge-button {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #ffcc00, #ff6600);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .challenge-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.7);
+        }
+        
+        .challenge-button i {
+            margin-right: 8px;
+        }
+        
+        .coming-soon-tag {
+            font-size: 14px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .chart-item {
+                flex-wrap: wrap;
+            }
+            
+            .chart-stats {
+                margin-left: 0;
+                margin-top: 8px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="charts-page">
+    <div class="content-panel" id="chartsPanel">
+        <!-- Panel handle for swipe down -->
+        <div class="panel-handle">
+            <div class="handle-indicator"></div>
+        </div>
+        
+        <!-- Panel header with improved styling -->
+        <div class="panel-header">
+            <h2 class="panel-title">Trends & Top Charts</h2>
+            <button class="close-button">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+        
+        <!-- Panel content -->
+        <div class="panel-content">
+            <div class="section-title">
+                <i class="fas fa-chart-line"></i>
+                <h2>Top Charts</h2>
+            </div>
+            
+            <p class="section-description">
+                Follow global trends, browse regional favorites, and create your own challenge.
+                See what's hot in the karaoke world!
+            </p>
+            
+            <div class="charts-container">
+                <!-- Global Top 10 -->
+                <div class="chart-section">
+                    <h3 class="chart-title">
+                        <i class="fas fa-globe"></i>
+                        Global Top 10
+                    </h3>
+                    
+                    <ul class="chart-list">
+                        <li class="chart-item">
+                            <div class="chart-rank">1</div>
+                            <div class="chart-info">
+                                <div class="chart-song">Midnight Echoes</div>
+                                <div class="chart-artist">Luna Whispers</div>
+                            </div>
+                            <div class="chart-stats">
+                                <i class="fas fa-fire"></i>
+                                <span>2.3M</span>
+                            </div>
+                        </li>
+                        
+                        <li class="chart-item">
+                            <div class="chart-rank">2</div>
+                            <div class="chart-info">
+                                <div class="chart-song">Electric Dreams</div>
+                                <div class="chart-artist">Neon Pulse</div>
+                            </div>
+                            <div class="chart-stats">
+                                <i class="fas fa-fire"></i>
+                                <span>1.9M</span>
+                            </div>
+                        </li>
+                        
+                        <li class="chart-item">
+                            <div class="chart-rank">3</div>
+                            <div class="chart-info">
+                                <div class="chart-song">Sunset Symphony</div>
+                                <div class="chart-artist">Ocean Breeze</div>
+                            </div>
+                            <div class="chart-stats">
+                                <i class="fas fa-fire"></i>
+                                <span>1.7M</span>
+                            </div>
+                        </li>
+                        
+                        <li class="chart-item">
+                            <div class="chart-rank">4</div>
+                            <div class="chart-info">
+                                <div class="chart-song">Cosmic Journey</div>
+                                <div class="chart-artist">Stellar Waves</div>
+                            </div>
+                            <div class="chart-stats">
+                                <i class="fas fa-fire"></i>
+                                <span>1.5M</span>
+                            </div>
+                        </li>
+                        
+                        <li class="chart-item">
+                            <div class="chart-rank">5</div>
+                            <div class="chart-info">
+                                <div class="chart-song">Mountain's Call</div>
+                                <div class="chart-artist">Echo Valley</div>
+                            </div>
+                            <div class="chart-stats">
+                                <i class="fas fa-fire"></i>
+                                <span>1.2M</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Regional Charts -->
+                <div class="chart-section">
+                    <h3 class="chart-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Regional Charts
+                    </h3>
+                    
+                    <div class="region-tabs">
+                        <div class="region-tab active">Global</div>
+                        <div class="region-tab">U.K.</div>
+                        <div class="region-tab">Japan</div>
+                        <div class="region-tab">Harvard University</div>
+                        <div class="region-tab">Peking University</div>
+                        <div class="region-tab">Others</div>
+                    </div>
+                    
+                    <ul class="chart-list">
+                        <li class="chart-item">
+                            <div class="chart-rank">1</div>
+                            <div class="chart-info">
+                                <div class="chart-song">Digital Horizon</div>
+                                <div class="chart-artist">Pixel Dreams</div>
+                            </div>
+                            <div class="chart-stats">
+                                <i class="fas fa-fire"></i>
+                                <span>956K</span>
+                            </div>
+                        </li>
+                        
+                        <li class="chart-item">
+                            <div class="chart-rank">2</div>
+                            <div class="chart-info">
+                                <div class="chart-song">Autumn Leaves</div>
+                                <div class="chart-artist">Maple Forest</div>
+                            </div>
+                            <div class="chart-stats">
+                                <i class="fas fa-fire"></i>
+                                <span>872K</span>
+                            </div>
+                        </li>
+                        
+                        <li class="chart-item">
+                            <div class="chart-rank">3</div>
+                            <div class="chart-info">
+                                <div class="chart-song">Crystal Waters</div>
+                                <div class="chart-artist">Deep Blue</div>
+                            </div>
+                            <div class="chart-stats">
+                                <i class="fas fa-fire"></i>
+                                <span>743K</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Create Challenge -->
+                <div class="create-challenge">
+                    <button class="challenge-button">
+                        <i class="fas fa-trophy"></i>
+                        Create Your Challenge
+                    </button>
+                    <div class="coming-soon-tag">Coming Soon</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

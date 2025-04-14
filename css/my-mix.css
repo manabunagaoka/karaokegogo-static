@@ -1,0 +1,85 @@
+/* My Mix page specific styling */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-title i {
+    font-size: 24px;
+    margin-right: 12px;
+    color: #00ccff;
+}
+
+.section-title h2 {
+    font-size: 28px;
+    font-weight: 600;
+    background: linear-gradient(to right, #00ccff, #3333ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+}
+
+.section-description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Coming soon placeholder */
+.coming-soon {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+.coming-soon i {
+    color: #00ccff;
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.6);
+}
+
+.coming-soon h3 {
+    font-size: 24px;
+    margin: 10px 0;
+    background: linear-gradient(to right, #00ccff, #3333ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.coming-soon p {
+    font-size: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .section-title h2 {
+        font-size: 24px;
+    }
+    
+    .section-description {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title i {
+        font-size: 20px;
+    }
+    
+    .section-title h2 {
+        font-size: 22px;
+    }
+    
+    .coming-soon h3 {
+        font-size: 20px;
+    }
+}

@@ -5,34 +5,320 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karaoke - KaraokeGoGo</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/karaoke.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome - matching version from original app -->
-    <link 
-        rel="preload" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-        as="style" 
-        crossorigin="anonymous"
-    />
+    <!-- Font Awesome -->
     <link 
         rel="stylesheet" 
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
         crossorigin="anonymous"
     />
-</head>
-<body>
-    <div class="app-container">
-        <header class="app-header">
-            <div class="logo-container">
-                <h1 class="logo">
-                    karaokeGoGo
-                    <span class="beta-tag">beta</span>
-                </h1>
-            </div>
-            <p class="tagline">Pour your soul. Remix your world.</p>
-        </header>
+    <style>
+        /* Panel styles */
+        .content-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 18, 18, 0.95);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+        }
         
-        <main class="section-content">
+        .panel-handle {
+            padding: 8px 0;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+        }
+        
+        .handle-indicator {
+            width: 40px;
+            height: 5px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 3px;
+        }
+        
+        .panel-header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(to right, rgba(36,14,50,0.8) 0%, rgba(18,18,18,0.8) 100%);
+        }
+        
+        .panel-title {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, #ff9900, #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            max-width: calc(100% - 50px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .close-button {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #ff00cc, #3333ff);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 0, 204, 0.5);
+        }
+        
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        /* Section title styling */
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title i {
+            font-size: 24px;
+            margin-right: 12px;
+            color: #ff00cc;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(to right, #ff9900, #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
+
+        .section-description {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Featured tracks section */
+        .featured-tracks {
+            margin-top: 20px;
+        }
+
+        .featured-tracks h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #ff00cc, #3333ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        /* Custom audio player styling */
+        .custom-audio-player {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 5px 15px;
+        }
+
+        .play-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff00cc, #3333ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 0, 204, 0.4);
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .play-button i {
+            color: white;
+            font-size: 14px;
+        }
+
+        .progress-container {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #ff00cc, #3333ff);
+            border-radius: 3px;
+            width: 0%;
+        }
+
+        .track-time {
+            margin-left: 15px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: monospace;
+        }
+        
+        /* Track list styling */
+        .track-list {
+            margin-top: 16px;
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid rgba(255, 0, 204, 0.7);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .track-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .track-info {
+            flex: 0 0 25%;
+            margin-right: 15px;
+        }
+
+        .track-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .track-artist {
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .track-artist.vocal {
+            background: linear-gradient(135deg, rgba(255, 0, 204, 0.2), rgba(51, 51, 255, 0.2));
+            color: #ff66cc;
+            border: 1px solid rgba(255, 0, 204, 0.3);
+        }
+
+        .track-artist.karaoke {
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.2), rgba(255, 102, 0, 0.2));
+            color: #ffcc66;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+        }
+
+        .audio-player {
+            flex: 1;
+        }
+        
+        /* Coming soon feature */
+        .coming-soon-feature {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin: 25px 0;
+            background: linear-gradient(135deg, rgba(255, 0, 204, 0.15), rgba(51, 51, 255, 0.15));
+            border-radius: 15px;
+            border-left: 4px solid rgba(255, 0, 204, 0.7);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff00cc, #3333ff);
+            border-radius: 50%;
+            margin-right: 20px;
+            box-shadow: 0 0 15px rgba(255, 0, 204, 0.5);
+        }
+
+        .feature-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        .feature-info {
+            flex: 1;
+        }
+
+        .feature-info h4 {
+            font-size: 18px;
+            margin: 0 0 8px 0;
+            background: linear-gradient(to right, #ff00cc, #ff66ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .feature-info p {
+            font-size: 14px;
+            margin: 0;
+            opacity: 0.9;
+            color: white;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .track-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .track-info {
+                flex: 0 0 100%;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="karaoke-page">
+    <div class="content-panel" id="karaokePanel">
+        <!-- Panel handle for swipe down -->
+        <div class="panel-handle">
+            <div class="handle-indicator"></div>
+        </div>
+        
+        <!-- Panel header -->
+        <div class="panel-header">
+            <h2 class="panel-title">Browse Karaoke Tracks</h2>
+            <button class="close-button">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+        
+        <!-- Panel content -->
+        <div class="panel-content">
             <div class="section-title">
                 <i class="fas fa-microphone"></i>
                 <h2>Karaoke</h2>
@@ -41,7 +327,7 @@
             <div class="karaoke-container">
                 <p class="section-description">
                     Sing along to your favorite tracks with our immersive karaoke experience. 
-                    Choose from thousands of songs and show off your vocal talent!
+                    Keep checking back for more tracks. Check our Feed on the latest news and stories.
                 </p>
                 
                 <div class="featured-tracks">
@@ -50,124 +336,133 @@
                     <div class="track-item">
                         <div class="track-info">
                             <div class="track-title">Teacher Anthem</div>
-                            <div class="track-artist">Karaoke Ver.</div>
+                            <div class="track-artist vocal">With Vocal</div>
                         </div>
                         <div class="audio-player">
-                            <audio controls>
-                                <source src="music/tracks/Teacher Anthem Karaoke.wav" type="audio/wav">
-                                Your browser does not support the audio element.
-                            </audio>
+                            <div class="custom-audio-player" data-audio="music/tracks/Teacher Anthem Vocal.wav">
+                                <div class="play-button">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar"></div>
+                                </div>
+                                <div class="track-time">0:00</div>
+                            </div>
+                            <audio src="music/tracks/Teacher Anthem Vocal.wav" style="display:none;"></audio>
                         </div>
-                        <button class="sing-button">Sing Now</button>
                     </div>
                     
                     <div class="track-item">
                         <div class="track-info">
                             <div class="track-title">Teacher Anthem</div>
-                            <div class="track-artist">With Vocal</div>
+                            <div class="track-artist karaoke">Karaoke Ver.</div>
                         </div>
                         <div class="audio-player">
-                            <audio controls>
-                                <source src="music/tracks/Teacher Anthem Vocal.wav" type="audio/wav">
-                                Your browser does not support the audio element.
-                            </audio>
+                            <div class="custom-audio-player" data-audio="music/tracks/Teacher Anthem Karaoke.wav">
+                                <div class="play-button">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar"></div>
+                                </div>
+                                <div class="track-time">0:00</div>
+                            </div>
+                            <audio src="music/tracks/Teacher Anthem Karaoke.wav" style="display:none;"></audio>
                         </div>
-                        <button class="sing-button">Listen</button>
                     </div>
                     
-                    <div class="track-item">
-                        <div class="track-info">
-                            <div class="track-title">Bohemian Rhapsody</div>
-                            <div class="track-artist">Queen</div>
+                    <div class="coming-soon-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-microphone-alt"></i>
                         </div>
-                        <div class="audio-player">
-                            <audio controls>
-                                <source src="music/samples/sample1.mp3" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
+                        <div class="feature-info">
+                            <h4>Recording Function</h4>
+                            <p>Coming soon! Record your performance and share it with friends.</p>
                         </div>
-                        <button class="sing-button">Sing Now</button>
                     </div>
                 </div>
             </div>
-        </main>
-        
-        <nav class="main-navigation">
-            <div class="nav-buttons">
-                <a href="karaoke.html" class="nav-button karaoke-btn active" style="border: 2px solid #ff99ff;">
-                    <div class="glow"></div>
-                    <div class="btn-icon"><i class="fas fa-microphone"></i></div>
-                    <div class="btn-text">Karaoke</div>
-                </a>
-                
-                <a href="my-mix.html" class="nav-button my-mix-btn" style="border: 2px solid #99ccff;">
-                    <div class="glow"></div>
-                    <div class="btn-icon"><i class="fas fa-music"></i></div>
-                    <div class="btn-text">My Mix</div>
-                </a>
-                
-                <a href="top-charts.html" class="nav-button top-charts-btn" style="border: 2px solid #ffcc99;">
-                    <div class="glow"></div>
-                    <div class="btn-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="btn-text">Top Charts</div>
-                </a>
-                
-                <a href="feed.html" class="nav-button feed-btn" style="border: 2px solid #99ff99;">
-                    <div class="glow"></div>
-                    <div class="btn-icon"><i class="fas fa-rss"></i></div>
-                    <div class="btn-text">Feed</div>
-                </a>
-            </div>
-        </nav>
+        </div>
     </div>
 
     <script src="js/main.js"></script>
-    <script src="js/karaoke.js"></script>
-</body>
-</html>
-                    <div class="btn-icon"><i class="fas fa-music"></i></div>
-                    <div class="btn-text">My Mix</div>
-                </a>
+    <script>
+        // Custom audio player implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            const customPlayers = document.querySelectorAll('.custom-audio-player');
+            const audioElements = document.querySelectorAll('audio');
+            let currentlyPlaying = null;
+            
+            customPlayers.forEach((player, index) => {
+                const audio = audioElements[index];
+                const playButton = player.querySelector('.play-button');
+                const playIcon = playButton.querySelector('i');
+                const progressBar = player.querySelector('.progress-bar');
+                const progressContainer = player.querySelector('.progress-container');
+                const timeDisplay = player.querySelector('.track-time');
                 
-                <a href="top-charts.html" class="nav-button top-charts-btn">
-                    <div class="glow"></div>
-                    <div class="btn-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="btn-text">Top Charts</div>
-                </a>
+                // Play/pause functionality
+                playButton.addEventListener('click', function() {
+                    if (audio.paused) {
+                        // Pause any currently playing audio
+                        if (currentlyPlaying && currentlyPlaying !== audio) {
+                            currentlyPlaying.pause();
+                            // Update UI for the previously playing track
+                            customPlayers.forEach(p => {
+                                const pIcon = p.querySelector('.play-button i');
+                                if (p !== player) {
+                                    pIcon.className = 'fas fa-play';
+                                }
+                            });
+                        }
+                        
+                        // Play this track
+                        audio.play();
+                        playIcon.className = 'fas fa-pause';
+                        currentlyPlaying = audio;
+                    } else {
+                        // Pause this track
+                        audio.pause();
+                        playIcon.className = 'fas fa-play';
+                        currentlyPlaying = null;
+                    }
+                });
                 
-                <a href="feed.html" class="nav-button feed-btn">
-                    <div class="glow"></div>
-                    <div class="btn-icon"><i class="fas fa-rss"></i></div>
-                    <div class="btn-text">Feed</div>
-                </a>
-            </div>
-        </nav>
-    </div>
-
-    <script src="js/main.js"></script>
-    <script src="js/karaoke.js"></script>
-</body>
-</html>
-                    <div class="btn-icon"><i class="fas fa-music"></i></div>
-                    <div class="btn-text">My Mix</div>
-                </a>
+                // Update progress bar
+                audio.addEventListener('timeupdate', function() {
+                    // Update progress bar
+                    const progress = (audio.currentTime / audio.duration) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    // Update time display
+                    const minutes = Math.floor(audio.currentTime / 60);
+                    const seconds = Math.floor(audio.currentTime % 60);
+                    timeDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                });
                 
-                <a href="top-charts.html" class="nav-button top-charts-btn">
-                    <div class="glow"></div>
-                    <div class="btn-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="btn-text">Top Charts</div>
-                </a>
+                // Reset when audio ends
+                audio.addEventListener('ended', function() {
+                    progressBar.style.width = '0%';
+                    playIcon.className = 'fas fa-play';
+                    timeDisplay.textContent = '0:00';
+                    currentlyPlaying = null;
+                });
                 
-                <a href="feed.html" class="nav-button feed-btn">
-                    <div class="glow"></div>
-                    <div class="btn-icon"><i class="fas fa-rss"></i></div>
-                    <div class="btn-text">Feed</div>
-                </a>
-            </div>
-        </nav>
-    </div>
-
-    <script src="js/main.js"></script>
-    <script src="js/karaoke.js"></script>
+                // Click on progress bar to seek
+                progressContainer.addEventListener('click', function(e) {
+                    const rect = progressContainer.getBoundingClientRect();
+                    const pos = (e.clientX - rect.left) / rect.width;
+                    audio.currentTime = pos * audio.duration;
+                });
+                
+                // Preload metadata
+                audio.addEventListener('loadedmetadata', function() {
+                    const minutes = Math.floor(audio.duration / 60);
+                    const seconds = Math.floor(audio.duration % 60);
+                    timeDisplay.textContent = `0:00 / ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                });
+            });
+        });
+    </script>
 </body>
 </html>

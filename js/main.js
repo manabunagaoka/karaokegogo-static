@@ -1,84 +1,91 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Add page transition effect
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle navigation button clicks on home page
     const navButtons = document.querySelectorAll('.nav-button');
-    
-    // Fade in when page loads
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
-    
-    // Add click handlers to all navigation buttons
     navButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
+            const targetUrl = this.getAttribute('href');
             
-            const target = this.getAttribute('href');
-            const isActive = this.classList.contains('active');
-            const currentPath = window.location.pathname;
+            // Create overlay div that slides up
+            const overlay = document.createElement('div');
+            overlay.className = 'page-transition-overlay';
+            overlay.style.position = 'fixed';
+            overlay.style.left = '0';
+            overlay.style.bottom = '-100%';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(18, 18, 18, 0.95)';
+            overlay.style.zIndex = '1000';
+            overlay.style.transition = 'bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+            overlay.style.borderTopLeftRadius = '20px';
+            overlay.style.borderTopRightRadius = '20px';
             
-            // If clicking the active button (and not on home page), go back to home
-            if (isActive && !currentPath.includes('index.html')) {
-                animateAndNavigate('index.html');
-                return;
-            }
+            // Add handle bar
+            const handle = document.createElement('div');
+            handle.style.width = '40px';
+            handle.style.height = '5px';
+            handle.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+            handle.style.borderRadius = '3px';
+            handle.style.margin = '12px auto';
+            overlay.appendChild(handle);
             
-            // Don't do anything if we're already on this page
-            if (currentPath.includes(target)) {
-                return;
-            }
+            // Add overlay to body
+            document.body.appendChild(overlay);
             
-            // Otherwise navigate to the page
-            animateAndNavigate(target);
+            // Start animation after a tiny delay
+            setTimeout(function() {
+                overlay.style.bottom = '0';
+            }, 10);
+            
+            // Navigate after animation completes
+            setTimeout(function() {
+                window.location.href = targetUrl;
+            }, 400);
         });
     });
     
-    // Function to handle slide-up animation and navigation
-    function animateAndNavigate(targetUrl) {
-        // Create slide panel
-        const panel = document.createElement('div');
-        panel.className = 'slide-panel';
-        panel.style.position = 'fixed';
-        panel.style.zIndex = '9999';
-        panel.style.left = '0';
-        panel.style.width = '100%';
-        panel.style.height = '100%';
-        panel.style.backgroundColor = 'rgba(18, 18, 18, 0.95)';
-        panel.style.bottom = '-100%'; // Start from bottom
-        panel.style.transition = 'bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-        panel.style.borderTopLeftRadius = '20px';
-        panel.style.borderTopRightRadius = '20px';
-        
-        // Add handle
-        const handle = document.createElement('div');
-        handle.style.width = '40px';
-        handle.style.height = '4px';
-        handle.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
-        handle.style.borderRadius = '2px';
-        handle.style.margin = '12px auto';
-        panel.appendChild(handle);
-        
-        // Add to body
-        document.body.appendChild(panel);
-        
-        // Force browser to recognize the element
-        window.getComputedStyle(panel).opacity;
-        
-        // Animate panel sliding up
-        requestAnimationFrame(() => {
-            panel.style.bottom = '0';
+    // Add click handlers to close buttons on content pages
+    const closeButtons = document.querySelectorAll('.close-button, .panel-handle');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the content panel
+            const panel = document.querySelector('.content-panel');
+            if (!panel) return;
+            
+            // Set transition
+            panel.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+            panel.style.transform = 'translateY(100%)';
+            
+            // Navigate after animation
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 400);
         });
+    });
+    
+    // Add disco lights on home page
+    if (window.location.pathname.includes('index.html') || 
+        window.location.pathname.endsWith('/') || 
+        window.location.pathname === '') {
         
-        // Navigate after animation
+        // Fade in the home page
+        document.body.style.opacity = '0';
         setTimeout(() => {
-            window.location.href = targetUrl;
-        }, 600);
+            document.body.style.transition = 'opacity 0.5s ease';
+            document.body.style.opacity = '1';
+        }, 100);
+        
+        // Add disco lights
+        addDiscoLights();
     }
     
-    // Add disco lights effect
+    // Function to add disco lights
     function addDiscoLights() {
         const container = document.querySelector('.app-container');
+        if (!container) return;
+        
         const colors = ['#a239ca', '#4a90e2', '#f1a43c', '#3bcc65'];
         
         // Create disco lights
@@ -120,6 +127,4 @@ document.addEventListener('DOMContentLoaded', () => {
             pulsing = !pulsing;
         }, 2000);
     }
-    
-    addDiscoLights();
 });

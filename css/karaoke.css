@@ -1,208 +1,221 @@
-/* Karaoke page specific styles */
-
-.section-content {
-    flex: 1;
-    padding: 1rem;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.back-button {
-    position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
-    color: #fff;
-    cursor: pointer;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-
-.back-button:hover {
-    opacity: 1;
-}
+/* Karaoke page specific styling */
 
 .section-title {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid rgba(162, 57, 202, 0.3);
-    width: 100%;
-    max-width: 600px;
+    margin-bottom: 20px;
 }
 
 .section-title i {
-    font-size: 1.5rem;
-    color: #a239ca;
+    font-size: 24px;
+    margin-right: 12px;
+    color: #ff00cc;
 }
 
 .section-title h2 {
-    font-size: 1.8rem;
+    font-size: 28px;
     font-weight: 600;
-    /* Disco-style gradient for section title */
+    background: linear-gradient(to right, #ff9900, #ff00ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+}
+
+.section-description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Featured tracks section */
+.featured-tracks {
+    margin-top: 20px;
+}
+
+.featured-tracks h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #ff00cc, #3333ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid rgba(255, 0, 204, 0.7);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.track-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.track-info {
+    flex: 0 0 25%;
+    margin-right: 15px;
+}
+
+.track-title {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.track-artist {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.audio-player {
+    flex: 1;
+}
+
+.audio-player audio {
+    width: 100%;
+    height: 36px;
+    border-radius: 18px;
+}
+
+.sing-button {
+    flex: 0 0 90px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #ff00cc, #3333ff);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 0, 204, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sing-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 0, 204, 0.6);
+}
+
+/* Disco styling for audio player */
+.audio-player audio::-webkit-media-controls-panel {
+    background: linear-gradient(to right, rgba(36, 14, 50, 0.8), rgba(18, 18, 18, 0.8));
+}
+
+.audio-player audio::-webkit-media-controls-current-time-display,
+.audio-player audio::-webkit-media-controls-time-remaining-display {
+    color: #ff00cc;
+}
+
+/* Coming soon placeholder */
+.coming-soon {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+.coming-soon h3 {
+    font-size: 24px;
+    margin: 10px 0;
     background: linear-gradient(to right, #ff9900, #ff00ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
-.karaoke-container {
-    width: 100%;
-    max-width: 600px;
+.coming-soon p {
+    font-size: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+    opacity: 0.8;
 }
 
-.section-description {
-    margin-bottom: 2rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
+/* Coming soon feature card */
+.coming-soon-feature {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin: 25px 0;
+    background: linear-gradient(135deg, rgba(255, 0, 204, 0.15), rgba(51, 51, 255, 0.15));
+    border-radius: 15px;
+    border-left: 4px solid rgba(255, 0, 204, 0.7);
 }
 
-.featured-tracks {
-    margin-top: 1rem;
-}
-
-.featured-tracks h3 {
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.track-item {
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    padding: 1.2rem;
-    margin-bottom: 1.2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.track-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    background: rgba(20, 20, 20, 0.8);
-}
-
-.track-info {
-    margin-bottom: 1rem;
-}
-
-.track-title {
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
-.track-artist {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.audio-player {
-    margin-bottom: 0.8rem;
-    width: 100%;
-}
-
-.audio-player audio {
-    width: 100%;
-    height: 40px;
-    border-radius: 50px;
-    background: rgba(162, 57, 202, 0.2);
-}
-
-/* Custom audio player styling to match design */
-audio::-webkit-media-controls-panel {
-    background: rgba(162, 57, 202, 0.15);
-}
-
-audio::-webkit-media-controls-play-button {
-    background-color: #a239ca;
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff00cc, #3333ff);
     border-radius: 50%;
+    margin-right: 20px;
+    box-shadow: 0 0 15px rgba(255, 0, 204, 0.5);
 }
 
-audio::-webkit-media-controls-current-time-display,
-audio::-webkit-media-controls-time-remaining-display {
-    color: #fff;
+.feature-icon i {
+    font-size: 28px;
+    color: white;
 }
 
-/* Unified play/pause button styling */
-button.sing-button, button.play-button, button.pause-button {
-  background: linear-gradient(135deg, #a239ca, #4c2882);
-  color: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 50px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: block;
-  margin-left: auto;
+.feature-info {
+    flex: 1;
 }
 
-button.sing-button:hover, button.play-button:hover, button.pause-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(162, 57, 202, 0.5);
+.feature-info h4 {
+    font-size: 18px;
+    margin: 0 0 8px 0;
+    background: linear-gradient(to right, #ff00cc, #ff66ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-.sing-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(162, 57, 202, 0.5);
+.feature-info p {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.9;
+    color: white;
 }
 
-/* Highlight active nav button */
-.nav-button.active {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Responsive styles */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .section-title h2 {
-        font-size: 1.5rem;
+    .track-item {
+        flex-direction: column;
+        align-items: flex-start;
     }
     
-    .section-title i {
-        font-size: 1.3rem;
+    .track-info {
+        flex: 0 0 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
     }
     
-    .track-title {
-        font-size: 1rem;
+    .sing-button {
+        margin-top: 10px;
+        align-self: flex-end;
     }
 }
 
 @media (max-width: 480px) {
-    .back-button {
-        top: 1rem;
-        left: 1rem;
-        font-size: 0.8rem;
-    }
-    
-    .section-content {
-        padding: 0.8rem;
-    }
-    
-    .section-title {
-        margin-bottom: 1rem;
-    }
-    
     .section-title h2 {
-        font-size: 1.3rem;
+        font-size: 24px;
     }
     
-    .section-title i {
-        font-size: 1.1rem;
+    .section-description {
+        font-size: 14px;
     }
     
-    .track-item {
-        padding: 0.8rem;
-    }
-    
-    .sing-button {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+    .featured-tracks h3 {
+        font-size: 18px;
     }
 }
