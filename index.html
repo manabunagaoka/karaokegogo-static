@@ -2,8 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>KaraokeGoGo</title>
+
+      <!-- Add iOS Chrome detection right here -->
+      <script>
+        // iOS Chrome detection
+        window.isIOSChrome = /CriOS/i.test(navigator.userAgent) && /iP(hone|od|ad)/i.test(navigator.userAgent);
+    
+        // Apply iOS Chrome specific fixes
+        if (window.isIOSChrome) {
+          // Add a class to the body for targeting with CSS
+          document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('ios-chrome');
+          });
+        }
+        </script>
+        
+        <!-- Rest of your head content continues -->
+
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/fixed-nav.css">
     <!-- Google Fonts - Add a modern font like Poppins or Montserrat -->
@@ -20,6 +37,36 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
         crossorigin="anonymous"
     />
+
+    <style>
+        /* iOS Chrome specific fixes */
+        .ios-chrome .app-container {
+          background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/stage.jpg') !important;
+          background-size: cover !important;
+          background-position: center !important;
+        }
+    
+        .ios-chrome .logo {
+          /* Simplified gradient for iOS */
+          background: #ff66cc !important;
+          color: transparent !important;
+          -webkit-background-clip: text !important;
+        }
+    
+        .ios-chrome .beta-tag {
+          /* Simplified gradient for iOS */
+          background: #33ccff !important;
+          color: transparent !important;
+          -webkit-background-clip: text !important;
+        }
+    
+        /* Fix for navigation issues */
+        .ios-chrome .close-button,
+        .ios-chrome .panel-handle {
+          cursor: pointer;
+          -webkit-tap-highlight-color: transparent;
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">

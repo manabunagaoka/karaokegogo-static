@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My Mix - KaraokeGoGo</title>
+
+      <!-- Add iOS Chrome detection right here -->
+      <script>
+        // iOS Chrome detection
+        window.isIOSChrome = /CriOS/i.test(navigator.userAgent) && /iP(hone|od|ad)/i.test(navigator.userAgent);
+    
+        // Apply iOS Chrome specific fixes
+        if (window.isIOSChrome) {
+          // Add a class to the body for targeting with CSS
+          document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('ios-chrome');
+          });
+        }
+        </script>
+        
+        <!-- Rest of your head content continues -->
+
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -230,6 +247,35 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* iOS Chrome specific fixes */
+        .ios-chrome .app-container {
+          background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/stage.jpg') !important;
+          background-size: cover !important;
+          background-position: center !important;
+        }
+    
+        .ios-chrome .logo {
+          /* Simplified gradient for iOS */
+          background: #ff66cc !important;
+          color: transparent !important;
+          -webkit-background-clip: text !important;
+        }
+    
+        .ios-chrome .beta-tag {
+          /* Simplified gradient for iOS */
+          background: #33ccff !important;
+          color: transparent !important;
+          -webkit-background-clip: text !important;
+        }
+    
+        /* Fix for navigation issues */
+        .ios-chrome .close-button,
+        .ios-chrome .panel-handle {
+          cursor: pointer;
+          -webkit-tap-highlight-color: transparent;
+        }
+
     </style>
 </head>
 <body class="mix-page">
@@ -316,36 +362,25 @@
 
     <script src="js/main.js"></script>
     <!-- Add the new script here -->
-<script>
-    // Enhanced back button handlers for iOS compatibility
-    document.addEventListener('DOMContentLoaded', function() {
-        const closeButtons = document.querySelectorAll('.close-button');
-        const panelHandles = document.querySelectorAll('.panel-handle');
-        
-        // Function to handle navigation back to home
-        function navigateHome(e) {
-            if (e) e.preventDefault();
-            window.location.href = 'index.html';
-        }
-        
-        // Add both click and touchend events for better iOS compatibility
-        closeButtons.forEach(button => {
-            button.addEventListener('click', navigateHome);
-            button.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                navigateHome();
+
+    <script>
+        // iOS Chrome compatible navigation
+        document.addEventListener('DOMContentLoaded', function() {
+          if (window.isIOSChrome) {
+            // Replace event listeners with direct attribute
+            var closeButtons = document.querySelectorAll('.close-button');
+            var panelHandles = document.querySelectorAll('.panel-handle');
+            
+            closeButtons.forEach(function(btn) {
+              btn.setAttribute('onclick', 'window.location.href="index.html"');
             });
-        });
-        
-        panelHandles.forEach(handle => {
-            handle.addEventListener('click', navigateHome);
-            handle.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                navigateHome();
+            
+            panelHandles.forEach(function(handle) {
+              handle.setAttribute('onclick', 'window.location.href="index.html"');
             });
+          }
         });
-    });
-</script>
+        </script>
 
 </body>
 </html>
